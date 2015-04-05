@@ -1,0 +1,31 @@
+# Maintainer: Example User
+pkgname=example-pkg
+pkgver=1.0
+pkgrel=1
+pkgdesc="Dummy package to demonstrate usage of Docker makepkg-arch image"
+arch=('any')
+url="http://localhost"
+license=('GPL')
+depends=('bash')
+provides=('example')
+options=('!strip')
+source=('example.sh.in')
+sha256sums=('caad489779511e89ac53d3079ad321c77dc43cab3f91871eec01a9f6e5ed1bbb')
+
+build() {
+    cd "${srcdir}"
+
+	sed -e "s/@DATE@/$(date)/g" example.sh.in > example
+}
+
+check() {
+    cd "${srcdir}"
+
+	grep -qv '@DATE@' example
+}
+
+package() {
+    cd "${srcdir}"
+
+    install -Dm755 example "${pkgdir}/usr/bin/example"
+}

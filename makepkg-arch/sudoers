@@ -1,0 +1,7 @@
+User_Alias              BUILDERS = @USER@
+
+Defaults                env_keep += "DISPLAY HOME"
+Defaults>root           !set_logname
+Defaults:BUILDERS       !lecture
+
+BUILDERS                ALL = (ALL) NOPASSWD: ALL
